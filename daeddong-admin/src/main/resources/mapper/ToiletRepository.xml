@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.daeddongadmin.toiletMap.repository.ToiletRepository">
+	<select id="getToiletList" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toiletMap.domain.Toilet">
+		SELECT seq,
+		       name,
+		       latitiude,
+		       longitude,
+		       address,
+		       si,
+		       gungu,
+		       floor,
+		       openTime,
+		       closeTime,
+		       regDt,
+		       modDt,
+		       manageAgency,
+		       maNum,
+		       tolietType,
+		       countMan,
+		       countWomen,
+		       babyYn,
+		       unusualYn,
+		       cctvYn,
+		       alarmYn,
+		       pwdYn,
+		       pwd,
+		       etc,
+		       regId,
+		       modId,
+		       openYn
+		FROM 120bpm_toilet_info
+		limit #{index}, #{count};
+	</select>
+
+	<insert id="insertToilet" parameterType="java.util.HashMap">
+		INSERT INTO 120bpm_toilet_info
+		(name,
+		 latitiude,
+		 longitude,
+		 address,
+		 si,
+		 gungu,
+		 floor,
+		 openTime,
+		 closeTime,
+		 regDt,
+		 manageAgency,
+		 maNum,
+		 tolietType,
+		 countMan,
+		 countWomen,
+		 babyYn,
+		 unusualYn,
+		 cctvYn,
+		 alarmYn,
+		 pwdYn,
+		 pwd,
+		 etc,
+		 regId,
+		 openYn
+		 )
+		VALUES(
+				  #{name},
+				  #{latitiude},
+				  #{longitude},
+				  #{address},
+				  #{si},
+				  #{gungu},
+				  #{floor},
+				  #{openTime},
+				  #{closeTime},
+				  now(),
+				  #{manageAgency},
+				  #{maNum},
+				  #{tolietType},
+				  #{countMan},
+				  #{countWomen},
+				  #{babyYn},
+				  #{unusualYn},
+				  #{cctvYn},
+				  #{alarmYn},
+				  #{pwdYn},
+				  #{pwd},
+				  #{etc},
+				  #{regId},
+				  #{openYn}
+			  );
+	</insert>
+</mapper>
