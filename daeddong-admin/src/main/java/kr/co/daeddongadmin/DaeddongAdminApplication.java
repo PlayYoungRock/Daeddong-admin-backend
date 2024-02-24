@@ -27,7 +27,7 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://ec2-43-201-20-54.ap-northeast-2.compute.amazonaws.com/");
+				registry.addMapping("/**").allowedOrigins("http://localhost:3001");
 			}
 		};
 	}
