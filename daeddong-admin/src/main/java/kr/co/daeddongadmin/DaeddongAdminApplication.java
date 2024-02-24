@@ -27,6 +27,7 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
+				//CROS ORGIN 이슈로 인해서 특정 URL 오픈
 				registry.addMapping("/**")
 						.allowedOrigins("http://localhost:3001") // 허용할 오리진(도메인)을 설정합니다.
 						.allowedMethods("GET", "POST", "PUT", "DELETE") // 허용할 HTTP 메서드를 설정합니다.
