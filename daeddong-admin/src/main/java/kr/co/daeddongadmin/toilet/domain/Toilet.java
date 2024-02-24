@@ -1,6 +1,5 @@
-package kr.co.daeddongadmin.toiletMap.domain;
+package kr.co.daeddongadmin.toilet.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

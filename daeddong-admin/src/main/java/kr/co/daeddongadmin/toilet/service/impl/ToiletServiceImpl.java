@@ -1,8 +1,8 @@
-package kr.co.daeddongadmin.toiletMap.service.impl;
+package kr.co.daeddongadmin.toilet.service.impl;
 
-import kr.co.daeddongadmin.toiletMap.domain.Toilet;
-import kr.co.daeddongadmin.toiletMap.repository.ToiletRepository;
-import kr.co.daeddongadmin.toiletMap.service.ToiletService;
+import kr.co.daeddongadmin.toilet.domain.Toilet;
+import kr.co.daeddongadmin.toilet.repository.ToiletRepository;
+import kr.co.daeddongadmin.toilet.service.ToiletService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,13 @@ public class ToiletServiceImpl implements ToiletService {
 		paramMap.put("index", index);
 		paramMap.put("count", count);
 		return toiletRepository.getToiletList(paramMap);
+	}
+
+	@Override
+	public Toilet getToiletInfo(String seq) {
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("seq", seq);
+		return toiletRepository.getToiletInfo(paramMap);
 	}
 
 	@Override

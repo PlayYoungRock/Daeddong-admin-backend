@@ -1,7 +1,7 @@
-package kr.co.daeddongadmin.toiletMap.controller;
+package kr.co.daeddongadmin.toilet.controller;
 
-import kr.co.daeddongadmin.toiletMap.domain.Toilet;
-import kr.co.daeddongadmin.toiletMap.service.ToiletService;
+import kr.co.daeddongadmin.toilet.domain.Toilet;
+import kr.co.daeddongadmin.toilet.service.ToiletService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,10 +28,27 @@ public class ToiletController {
 
     @GetMapping("/toiletList")
     @ResponseBody
-    public Map<String,Object> main(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
+    public Map<String,Object> toiletList(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         List<Toilet> toiletList = toiletService.getToiletList(index,count);
+            resultMap.put("resultCode","0000");
             resultMap.put("toiletList",toiletList);
+        return resultMap;
+    }
+
+    @GetMapping("/toiletInfo")
+    @ResponseBody
+    public Map<String,Object> toiletInfo(@RequestParam(value="seq", defaultValue="0")String seq){
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        Toilet toiletInfo = toiletService.getToiletInfo(seq);
+        if(toiletInfo != null){
+            resultMap.put("resultCode","0000");
+            resultMap.put("toiletInfo",toiletInfo);
+        }else{
+            resultMap.put("resultCode","9999");
+            resultMap.put("resultMsg","데이터가 없습니다.");
+        }
+
         return resultMap;
     }
 
