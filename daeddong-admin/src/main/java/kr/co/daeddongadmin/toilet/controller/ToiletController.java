@@ -30,8 +30,10 @@ public class ToiletController {
     @ResponseBody
     public Map<String,Object> toiletList(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
         Map<String,Object> resultMap = new HashMap<String,Object>();
+        int totalCount = toiletService.getToiletCount();
         List<Toilet> toiletList = toiletService.getToiletList(index,count);
             resultMap.put("resultCode","0000");
+            resultMap.put("totalCount",totalCount);
             resultMap.put("toiletList",toiletList);
         return resultMap;
     }

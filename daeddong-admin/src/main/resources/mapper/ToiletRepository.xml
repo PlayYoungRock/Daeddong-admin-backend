@@ -30,7 +30,14 @@
 		       modId,
 		       openYn
 		FROM 120bpm_toilet_info
+		order by seq asc
 		limit #{index}, #{count};
+	</select>
+
+	<select id="getToiletCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT
+		    count(*) totalCount
+		FROM 120bpm_toilet_info
 	</select>
 
 	<select id="getToiletInfo" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toilet.domain.Toilet">

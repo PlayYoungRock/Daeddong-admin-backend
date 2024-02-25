@@ -7,6 +7,8 @@ import java.util.Map;
 public interface ToiletService {
     public List<Toilet> getToiletList(int index, int count);
 
+    int getToiletCount();
+
     Toilet getToiletInfo(String seq);
 
     void insertToilet(Map<String, Object> paramMap);

@@ -9,6 +9,7 @@ import java.util.Map;
 @Mapper
 public interface ToiletRepository {
     List<Toilet> getToiletList(Map<String,Object> paramMap);
+    int getToiletCount(Map<String,Object> paramMap);
     Toilet getToiletInfo(Map<String,Object> paramMap);
 
     void insertToilet(Map<String,Object> paramMap);

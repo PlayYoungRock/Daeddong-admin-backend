@@ -29,6 +29,12 @@ public class ToiletServiceImpl implements ToiletService {
 	}
 
 	@Override
+	public int getToiletCount() {
+		Map<String,Object> paramMap = new HashMap<>();
+		return toiletRepository.getToiletCount(paramMap);
+	}
+
+	@Override
 	public Toilet getToiletInfo(String seq) {
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("seq", seq);
