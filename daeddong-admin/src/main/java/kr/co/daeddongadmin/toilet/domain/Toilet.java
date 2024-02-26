@@ -22,7 +22,7 @@ public class Toilet {
     private String modDt;
     private String manageAgency;
     private String maNum;
-    private String tolietType;
+    private String toiletType;
     private String countMan;
     private String countWomen;
     private String babyYn;

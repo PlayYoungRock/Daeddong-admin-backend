@@ -90,7 +90,7 @@ public class ToiletController {
                     paramMap.put("closeTime", row.getCell(16).toString());
                     paramMap.put("manageAgency", row.getCell(14).toString());
                     paramMap.put("maNum", row.getCell(15).toString());
-                    paramMap.put("tolietType", row.getCell(1).toString());
+                    paramMap.put("toiletType", row.getCell(1).toString());
                     paramMap.put("countMan", row.getCell(5).toString());
                     paramMap.put("countWomen", row.getCell(11).toString());
                     paramMap.put("babyYn", row.getCell(26).toString());
