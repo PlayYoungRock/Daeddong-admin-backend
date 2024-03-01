@@ -42,6 +42,11 @@ public class ToiletServiceImpl implements ToiletService {
 	}
 
 	@Override
+	public int deleteToilet(String seq) {
+		return toiletRepository.deleteToilet(seq);
+	}
+
+	@Override
 	public void insertToilet(Map<String, Object> paramMap){
 		toiletRepository.insertToilet(paramMap);
 	}

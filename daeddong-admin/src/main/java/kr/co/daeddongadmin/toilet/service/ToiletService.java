@@ -11,5 +11,7 @@ public interface ToiletService {
 
     Toilet getToiletInfo(String seq);
 
+    int deleteToilet(String seq);
+
     void insertToilet(Map<String, Object> paramMap);
 }

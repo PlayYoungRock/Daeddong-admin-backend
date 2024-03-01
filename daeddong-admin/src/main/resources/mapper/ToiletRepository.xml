@@ -72,6 +72,10 @@
 		WHERE seq = #{seq};
 	</select>
 
+	<delete id="deleteToilet" parameterType="String">
+		delete from 120bpm_toilet_info where seq = #{seq}
+	</delete>
+
 	<insert id="insertToilet" parameterType="java.util.HashMap">
 		INSERT INTO 120bpm_toilet_info
 		(name,

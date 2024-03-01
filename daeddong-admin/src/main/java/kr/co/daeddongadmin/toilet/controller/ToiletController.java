@@ -8,10 +8,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class ToiletController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class ToiletController {
 
     @GetMapping("/toiletList")
     @ResponseBody
-    public Map<String,Object> toiletList(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
+    public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         int totalCount = toiletService.getToiletCount();
         List<Toilet> toiletList = toiletService.getToiletList(index,count);
@@ -40,12 +42,28 @@ public class ToiletController {
 
     @GetMapping("/toiletInfo")
     @ResponseBody
-    public Map<String,Object> toiletInfo(@RequestParam(value="seq", defaultValue="0")String seq){
+    public Map<String,Object> getToiletInfo(@RequestParam(value="seq", defaultValue="0")String seq){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         Toilet toiletInfo = toiletService.getToiletInfo(seq);
         if(toiletInfo != null){
             resultMap.put("resultCode","0000");
             resultMap.put("toiletInfo",toiletInfo);
+        }else{
+            resultMap.put("resultCode","9999");
+            resultMap.put("resultMsg","데이터가 없습니다.");
+        }
+
+        return resultMap;
+    }
+
+    @DeleteMapping("/deleteToilet")
+    @ResponseBody
+    public Map<String,Object> deleteToilet(@RequestParam(value="seq", defaultValue="0")String seq){
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        int deleteResult = toiletService.deleteToilet(seq);
+        if(deleteResult > 0){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","삭제되었습니다.");
         }else{
             resultMap.put("resultCode","9999");
             resultMap.put("resultMsg","데이터가 없습니다.");
