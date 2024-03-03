@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//@SpringBootApplication
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class DaeddongAdminApplication extends SpringBootServletInitializer {
 
@@ -28,7 +27,7 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:3001","https://daeddong-admin-dev.web.app") // 허용할 오리진(도메인)을 설정합니다.
+						.allowedOrigins("https://localhost:3001","https://daeddong-admin-dev.web.app") // 허용할 오리진(도메인)을 설정합니다.
 						.allowedMethods("GET", "POST", "PUT", "DELETE") // 허용할 HTTP 메서드를 설정합니다.
 						.allowedHeaders("*"); // 허용할 HTTP 헤더를 설정합니다.
 			}
