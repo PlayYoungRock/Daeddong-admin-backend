@@ -30,10 +30,14 @@ public class ToiletController {
 
     @GetMapping("/toiletList")
     @ResponseBody
-    public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index, @RequestParam(value="count", defaultValue="10")int count){
+    public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index,
+                                            @RequestParam(value="count", defaultValue="10")int count,
+                                            @RequestParam(value="gungu", defaultValue="")String gungu,
+                                            @RequestParam(value="searchWord", defaultValue="")String searchWord
+    ){
         Map<String,Object> resultMap = new HashMap<String,Object>();
-        int totalCount = toiletService.getToiletCount();
-        List<Toilet> toiletList = toiletService.getToiletList(index,count);
+        int totalCount = toiletService.getToiletCount(gungu,searchWord);
+        List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord);
             resultMap.put("resultCode","0000");
             resultMap.put("totalCount",totalCount);
             resultMap.put("toiletList",toiletList);

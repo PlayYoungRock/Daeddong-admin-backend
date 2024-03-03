@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface ToiletService {
-    public List<Toilet> getToiletList(int index, int count);
+    public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord);
 
-    int getToiletCount();
+    int getToiletCount(String gungu, String searchWord);
 
     Toilet getToiletInfo(String seq);
 

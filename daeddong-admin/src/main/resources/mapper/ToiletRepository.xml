@@ -30,6 +30,14 @@
 		       modId,
 		       openYn
 		FROM 120bpm_toilet_info
+		<where>
+			<if test="gungu != null and gungu != ''">
+				and gungu = #{gungu}
+			</if>
+			<if test="searchWord != null and searchWord != ''">
+				AND name LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
 		order by seq asc
 		limit #{index}, #{count};
 	</select>
@@ -38,6 +46,14 @@
 		SELECT
 		    count(*) totalCount
 		FROM 120bpm_toilet_info
+		<where>
+			<if test="gungu != null and gungu != ''">
+				and gungu = #{gungu}
+			</if>
+			<if test="searchWord != null and searchWord != ''">
+				AND name LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
 	</select>
 
 	<select id="getToiletInfo" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toilet.domain.Toilet">
