@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.daeddongadmin.address.repository.AddressRepository">
 	<select id="getSiGunguList" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.address.domain.Address">
-		select gungu from chugchug.`120bpm_toilet_info` group by gungu order by gungu asc;
+		select GUNGU from 120BPM_TOILET group by GUNGU order by GUNGU asc;
 	</select>
 </mapper>

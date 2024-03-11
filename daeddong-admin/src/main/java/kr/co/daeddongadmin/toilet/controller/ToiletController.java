@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +34,10 @@ public class ToiletController {
     public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index,
                                             @RequestParam(value="count", defaultValue="10")int count,
                                             @RequestParam(value="gungu", defaultValue="")String gungu,
-                                            @RequestParam(value="searchWord", defaultValue="")String searchWord
+                                            @RequestParam(value="searchWord", defaultValue="")String searchWord,
+                                            @RequestHeader("Authorization") String token
     ){
+        String authToken = token.replace("Bearer ", "");
         Map<String,Object> resultMap = new HashMap<String,Object>();
         int totalCount = toiletService.getToiletCount(gungu,searchWord);
         List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord);
