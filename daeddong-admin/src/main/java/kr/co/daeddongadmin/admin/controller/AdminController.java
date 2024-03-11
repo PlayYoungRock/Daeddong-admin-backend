@@ -14,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Controller
 @Slf4j
@@ -23,15 +26,23 @@ public class AdminController {
     @Autowired
     private CreateJwtToken createJwtToken;
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Admin admin) {
+    public ResponseEntity<Map<String,String>> login(@RequestBody Admin admin) {
+        Map<String, String> response = new HashMap<>();
         try {
             HttpHeaders headers = new HttpHeaders();
             JwtToken jwtToken = adminService.signIn(admin.getUsername(), admin.getPassword());
             log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
             headers.add("Authorization", "Bearer " + jwtToken);
-            return ResponseEntity.ok().headers(headers).body("Login successful");
+            response.put("message", "Login successful");
+            response.put("resultCode", "0000");
+            response.put("accessToken", jwtToken.getAccessToken()); // AccessToken을 response에 추가
+            response.put("refreshToken", jwtToken.getRefreshToken()); // RefreshToken을 response에 추가
+
+            return ResponseEntity.ok().headers(headers).body(response);
+
+//            return ResponseEntity.ok().headers(headers).body("Login successful");
         } catch (UsernameNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 
