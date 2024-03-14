@@ -29,9 +29,12 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("https://localhost:3001","https://daeddong-admin-dev.web.app") // 허용할 오리진(도메인)을 설정합니다.
-						.allowedMethods("GET", "POST", "PUT", "DELETE") // 허용할 HTTP 메서드를 설정합니다.
-						.allowedHeaders("*"); // 허용할 HTTP 헤더를 설정합니다.
+						.allowedOrigins("https://localhost:3001", "https://daeddong-admin-dev.web.app")
+						.allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedHeaders("Authorization", "Content-Type") // 필요한 헤더만 허용하도록 수정
+						.exposedHeaders("Authorization") // 클라이언트에 노출할 헤더 추가
+						.allowCredentials(true) // 인증 정보 (쿠키, 인증 헤더 등)을 허용
+						.maxAge(3600); // preflight 요청 결과를 캐싱할 시간 설정 (초 단위)
 			}
 		};
 	}
