@@ -71,6 +71,7 @@ public class JwtTokenProvider {
 
     // Jwt 토큰을 복호화하여 토큰에 들어있는 정보를 꺼내는 메서드
     public Authentication getAuthentication(String accessToken) {
+        System.out.println("accessToken = " + accessToken);
         // Jwt 토큰 복호화
         Claims claims = parseClaims(accessToken);
 
