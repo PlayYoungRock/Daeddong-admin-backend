@@ -50,8 +50,9 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 //		config.setAllowedOrigins(Arrays.asList("https://localhost:3001", "https://daeddong-admin-dev.web.app"));
 		config.setAllowedOrigins(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-		config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-		config.setExposedHeaders(Arrays.asList("Authorization"));
+//		config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+//		config.setExposedHeaders(Arrays.asList("Authorization"));
+		config.setAllowedHeaders(Arrays.asList("*"));
 		config.setAllowCredentials(true);
 		config.setMaxAge(3600L);
 
