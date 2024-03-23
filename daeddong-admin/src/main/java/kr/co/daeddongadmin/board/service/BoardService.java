@@ -13,4 +13,6 @@ public interface BoardService {
     public int updateBoard(Board board);
     public int incrementBoardViews(Board board);
 
+    public int test(int test);
+
 }

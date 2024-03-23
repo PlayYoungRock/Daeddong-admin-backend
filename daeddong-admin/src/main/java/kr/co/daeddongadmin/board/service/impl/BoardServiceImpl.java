@@ -42,5 +42,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardRepository.incrementBoardViews(board);
 	}
 
+	@Override
+	public int test(int test){
+		return 0;
+	}
+
 
 }

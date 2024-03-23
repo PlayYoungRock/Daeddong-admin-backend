@@ -93,46 +93,36 @@
 	</delete>
 
 	<insert id="insertToilet" parameterType="java.util.HashMap">
-		INSERT INTO 120bpm_toilet_info
-		(name,
-		 latitiude,
-		 longitude,
-		 address,
-		 si,
-		 gungu,
-		 floor,
-		 openTime,
-		 closeTime,
-		 regDt,
-		 manageAgency,
-		 maNum,
-		 tolietType,
-		 countMan,
-		 countWomen,
-		 babyYn,
-		 unusualYn,
-		 cctvYn,
-		 alarmYn,
-		 pwdYn,
-		 pwd,
-		 etc,
-		 regId,
-		 openYn
+		INSERT INTO 120BPM_TOILET
+		(NAME,
+		 ADDRESS,
+		 OPEN_TIME,
+		 CLOSE_TIME,
+		 REG_DT,
+		 MANAGE_AGENCY,
+		 MA_NUM,
+		 TOILET_TYPE,
+		 COUNT_MAN,
+		 COUNT_WOMEN,
+		 BABY_YN,
+		 UNUSUAL_YN,
+		 CCTV_YN,
+		 ALARM_YN,
+		 PWD_YN,
+		 PWD,
+		 ETC,
+		 REG_ID,
+		 OPEN_YN
 		 )
 		VALUES(
 				  #{name},
-				  #{latitiude},
-				  #{longitude},
 				  #{address},
-				  #{si},
-				  #{gungu},
-				  #{floor},
 				  #{openTime},
 				  #{closeTime},
 				  now(),
 				  #{manageAgency},
 				  #{maNum},
-				  #{tolietType},
+				  #{toiletType},
 				  #{countMan},
 				  #{countWomen},
 				  #{babyYn},
@@ -146,4 +136,18 @@
 				  #{openYn}
 			  );
 	</insert>
+
+	<select id="getIsNullSidoToiletList" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toilet.domain.Toilet">
+		SELECT SEQ,
+			   ADDRESS
+		FROM `120BPM_TOILET`
+		where SI is null
+		order by SEQ asc
+			limit 1;
+	</select>
+
+	<update id="updateSido" parameterType="java.util.HashMap">
+		update `120BPM_TOILET` set SI = #{sido}, GUNGU = #{sigungu}, LONGITUDE= #{x}, LATITIUDE = #{y}
+		                       where SEQ = #{seq}
+	</update>
 </mapper>

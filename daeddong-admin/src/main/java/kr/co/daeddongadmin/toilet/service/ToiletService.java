@@ -10,8 +10,12 @@ public interface ToiletService {
     int getToiletCount(String gungu, String searchWord);
 
     Toilet getToiletInfo(String seq);
+    Toilet getIsNullSidoToiletList();
 
     int deleteToilet(String seq);
 
     void insertToilet(Map<String, Object> paramMap);
+    void updateSido(Map<String, Object> paramMap);
+
+    int test(int test);
 }

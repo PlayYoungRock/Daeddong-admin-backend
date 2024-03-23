@@ -44,6 +44,10 @@ public class ToiletServiceImpl implements ToiletService {
 		paramMap.put("seq", seq);
 		return toiletRepository.getToiletInfo(paramMap);
 	}
+	@Override
+	public Toilet getIsNullSidoToiletList() {
+		return toiletRepository.getIsNullSidoToiletList();
+	}
 
 	@Override
 	public int deleteToilet(String seq) {
@@ -53,6 +57,15 @@ public class ToiletServiceImpl implements ToiletService {
 	@Override
 	public void insertToilet(Map<String, Object> paramMap){
 		toiletRepository.insertToilet(paramMap);
+	}
+	@Override
+	public void updateSido(Map<String, Object> paramMap){
+		toiletRepository.updateSido(paramMap);
+	}
+
+	@Override
+	public int test(int test){
+		return 0;
 	}
 
 }

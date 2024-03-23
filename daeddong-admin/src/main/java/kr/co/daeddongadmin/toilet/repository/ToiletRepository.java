@@ -11,7 +11,9 @@ public interface ToiletRepository {
     List<Toilet> getToiletList(Map<String,Object> paramMap);
     int getToiletCount(Map<String,Object> paramMap);
     Toilet getToiletInfo(Map<String,Object> paramMap);
+    Toilet getIsNullSidoToiletList();
     int deleteToilet(String seq);
 
     void insertToilet(Map<String,Object> paramMap);
+    void updateSido(Map<String,Object> paramMap);
 }
