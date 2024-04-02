@@ -47,8 +47,8 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();
-//		config.setAllowedOrigins(Arrays.asList("https://localhost:3001", "https://daeddong-admin-dev.web.app"));
-		config.setAllowedOrigins(Arrays.asList("*"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:3001", "http://admin-daeddong-front.s3-website.ap-northeast-2.amazonaws.com/"));
+//		config.setAllowedOrigins(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 //		config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 //		config.setExposedHeaders(Arrays.asList("Authorization"));

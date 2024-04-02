@@ -21,11 +21,12 @@ public class ToiletServiceImpl implements ToiletService {
 	 * 진행중인 이벤트 리스트
 	 */
 	@Override
-	public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord) {
+	public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord, String sido) {
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("index", index);
 		paramMap.put("count", count);
 		paramMap.put("gungu", gungu);
+		paramMap.put("sido", sido);
 		paramMap.put("searchWord", searchWord);
 		return toiletRepository.getToiletList(paramMap);
 	}

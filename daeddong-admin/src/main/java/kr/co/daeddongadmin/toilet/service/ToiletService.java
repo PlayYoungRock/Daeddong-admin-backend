@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ToiletService {
-    public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord);
+    public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord,String sido);
 
     int getToiletCount(String gungu, String searchWord);
 

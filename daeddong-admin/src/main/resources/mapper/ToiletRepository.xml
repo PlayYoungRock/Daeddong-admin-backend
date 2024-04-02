@@ -31,6 +31,9 @@
 		       OPEN_YN
 		FROM 120BPM_TOILET
 		<where>
+			<if test="sido != null and sido != ''">
+				and SI = #{sido}
+			</if>
 			<if test="gungu != null and gungu != ''">
 				and GUNGU = #{gungu}
 			</if>

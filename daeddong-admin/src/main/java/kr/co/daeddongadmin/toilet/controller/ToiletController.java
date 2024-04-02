@@ -44,11 +44,12 @@ public class ToiletController {
     public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index,
                                             @RequestParam(value="count", defaultValue="10")int count,
                                             @RequestParam(value="gungu", defaultValue="")String gungu,
+                                            @RequestParam(value="sido", defaultValue="")String sido,
                                             @RequestParam(value="searchWord", defaultValue="")String searchWord
     ){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         int totalCount = toiletService.getToiletCount(gungu,searchWord);
-        List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord);
+        List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord,sido);
             resultMap.put("resultCode","0000");
             resultMap.put("totalCount",totalCount);
             resultMap.put("toiletList",toiletList);
