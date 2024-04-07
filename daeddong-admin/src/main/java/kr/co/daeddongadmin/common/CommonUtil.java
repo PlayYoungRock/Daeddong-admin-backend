@@ -1,7 +1,9 @@
 package kr.co.daeddongadmin.common;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -207,6 +209,15 @@ public class CommonUtil {
 //            logger.error("예외 상황 발생");
         }
         return toFilename;
+    }
+
+    // Request Header에서 토큰 정보 추출
+    public static String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
 }
