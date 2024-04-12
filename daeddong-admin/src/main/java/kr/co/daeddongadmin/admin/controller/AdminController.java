@@ -3,7 +3,6 @@ package kr.co.daeddongadmin.admin.controller;
 import kr.co.daeddongadmin.admin.domain.Admin;
 import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.service.AdminService;
-import kr.co.daeddongadmin.jwt.CreateJwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,8 +22,6 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private CreateJwtToken createJwtToken;
     @PostMapping("/login")
     public ResponseEntity<Map<String,String>> login(@RequestBody Admin admin) {
         Map<String, String> response = new HashMap<>();
