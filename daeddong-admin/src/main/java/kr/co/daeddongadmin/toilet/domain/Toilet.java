@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Toilet {
     private int seq;
     private String name;
-    private String latitiude;
+    private String latitude;
     private String longitude;
     private String address;
     private String si;

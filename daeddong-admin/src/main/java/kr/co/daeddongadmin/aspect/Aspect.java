@@ -29,6 +29,7 @@ public class Aspect {
             "&& !execution(* kr.co.daeddongadmin.admin.controller.AdminController.login())")
     public void checkJwtToken() {
         String token = CommonUtil.resolveToken(request);
+        System.out.println("token = " + token);
         if(StringUtil.isNotBlank(token) && jwtTokenProvider.validateToken(token)){
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -4,7 +4,7 @@
 	<select id="getToiletList" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toilet.domain.Toilet">
 		SELECT SEQ,
 		       NAME,
-		       LATITIUDE,
+		       LATITUDE,
 		       LONGITUDE,
 		       ADDRESS,
 		       SI,
@@ -62,7 +62,7 @@
 	<select id="getToiletInfo" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.toilet.domain.Toilet">
 		SELECT SEQ,
 			   NAME,
-			   LATITIUDE,
+			   LATITUDE,
 			   LONGITUDE,
 			   ADDRESS,
 			   SI,
@@ -95,9 +95,11 @@
 		delete from 120BPM_TOILET where SEQ = #{seq}
 	</delete>
 
-	<insert id="insertToilet" parameterType="java.util.HashMap">
+	<insert id="insertToilet" parameterType="kr.co.daeddongadmin.toilet.domain.Toilet">
 		INSERT INTO 120BPM_TOILET
 		(NAME,
+		 LATITUDE,
+		 LONGITUDE,
 		 ADDRESS,
 		 OPEN_TIME,
 		 CLOSE_TIME,
@@ -119,6 +121,8 @@
 		 )
 		VALUES(
 				  #{name},
+				  #{latitude},
+				  #{longitude},
 				  #{address},
 				  #{openTime},
 				  #{closeTime},
@@ -150,7 +154,7 @@
 	</select>
 
 	<update id="updateSido" parameterType="java.util.HashMap">
-		update `120BPM_TOILET` set SI = #{sido}, GUNGU = #{sigungu}, LONGITUDE= #{x}, LATITIUDE = #{y}
+		update `120BPM_TOILET` set SI = #{sido}, GUNGU = #{sigungu}, LONGITUDE= #{x}, LATITUDE = #{y}
 		                       where SEQ = #{seq}
 	</update>
 </mapper>

@@ -14,6 +14,6 @@ public interface ToiletRepository {
     Toilet getIsNullSidoToiletList();
     int deleteToilet(String seq);
 
-    void insertToilet(Map<String,Object> paramMap);
+    int insertToilet(Toilet toilet);
     void updateSido(Map<String,Object> paramMap);
 }

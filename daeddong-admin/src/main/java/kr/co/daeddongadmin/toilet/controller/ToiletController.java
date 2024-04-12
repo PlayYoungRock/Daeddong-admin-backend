@@ -1,5 +1,6 @@
 package kr.co.daeddongadmin.toilet.controller;
 
+import kr.co.daeddongadmin.admin.domain.Admin;
 import kr.co.daeddongadmin.toilet.domain.Toilet;
 import kr.co.daeddongadmin.toilet.service.ToiletService;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -88,66 +91,20 @@ public class ToiletController {
         return resultMap;
     }
 
-    @GetMapping("/insert")
+    @PostMapping("/insertToilet")
     @ResponseBody
-    public void insert() {
-        try {
-            // 엑셀 파일 경로
-            String excelFilePath = "/Users/three/Downloads/17.xlsx";
-
-            // 파일을 읽기 위한 FileInputStream 생성
-//            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-            InputStream inputStream = new FileInputStream(excelFilePath);
-
-            // Workbook 생성 (엑셀 파일 읽기)
-            Workbook workbook = WorkbookFactory.create(inputStream);
-
-            // 첫 번째 시트 가져오기
-            // 첫 번째 시트 가져오기
-            Sheet sheet = workbook.getSheetAt(0);
-
-            // 첫 번째 행은 건너뛰기 (A부터 AD까지)
-
-            // 첫 번째 행은 건너뛰기 (A부터 AD까지)
-            for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-                Row row = sheet.getRow(rowIndex);
-                if (row != null) {
-                    // 각 열의 데이터 추출하여 Map에 담기
-                    Map<String, Object> paramMap = new HashMap<>();
-                    paramMap.put("name", new String(row.getCell(3).toString().getBytes(StandardCharsets.UTF_8)));
-                    paramMap.put("address", row.getCell(4).toString().split(",")[0]);
-                    paramMap.put("openTime", row.getCell(18).toString());
-                    paramMap.put("closeTime", row.getCell(18).toString());
-                    //관리기간
-                    paramMap.put("manageAgency", row.getCell(15).toString());
-                    //관리기간 번호
-                    paramMap.put("maNum", row.getCell(16).toString());
-                    paramMap.put("toiletType", row.getCell(1).toString());
-                    paramMap.put("countMan", row.getCell(6).toString());
-                    paramMap.put("countWomen", row.getCell(12).toString());
-                    paramMap.put("babyYn", row.getCell(28).toString());
-                    //장애인화장실 여부
-                    paramMap.put("unusualYn", row.getCell(8).toString());
-                    paramMap.put("cctvYn", row.getCell(27).toString());
-                    paramMap.put("alarmYn", row.getCell(25).toString());
-                    paramMap.put("pwdYn", "N");
-                    paramMap.put("pwd", "");
-                    paramMap.put("etc", "");
-                    paramMap.put("regId", "jack");
-                    paramMap.put("openYn", "Y");
-                    toiletService.insertToilet(paramMap);
-//                    System.out.println("paramMap = " + paramMap);
-                }
-            }
-
-            // Workbook 및 InputStream 닫기
-            workbook.close();
-            inputStream.close();
-            System.out.println("종료");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("e = " + e.getMessage());
+    public Map<String,Object> insertToilet(@RequestBody Toilet toilet){
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        int insertResult = toiletService.insertToilet(toilet);
+        if(insertResult > 0){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","등록 되었습니다.");
+        }else{
+            resultMap.put("resultCode","9999");
+            resultMap.put("resultMsg","데이터가 없습니다.");
         }
+
+        return resultMap;
     }
 
     @GetMapping("/naver")

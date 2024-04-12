@@ -56,9 +56,7 @@ public class ToiletServiceImpl implements ToiletService {
 	}
 
 	@Override
-	public void insertToilet(Map<String, Object> paramMap){
-		toiletRepository.insertToilet(paramMap);
-	}
+	public int insertToilet(Toilet toilet) {return toiletRepository.insertToilet(toilet);}
 	@Override
 	public void updateSido(Map<String, Object> paramMap){
 		toiletRepository.updateSido(paramMap);

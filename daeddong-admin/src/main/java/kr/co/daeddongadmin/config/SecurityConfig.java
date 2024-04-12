@@ -26,14 +26,14 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 // JWT를 사용하기 때문에 세션을 사용하지 않음
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().build();
+//                .and()
 //                .authorizeHttpRequests()
 //                .antMatchers("/login").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
                 // JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class).build();
+//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class).build();
 
     }
 
