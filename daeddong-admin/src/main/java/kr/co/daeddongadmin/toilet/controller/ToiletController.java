@@ -8,6 +8,7 @@ import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,6 +87,22 @@ public class ToiletController {
         if(insertResult > 0){
             resultMap.put("resultCode","0000");
             resultMap.put("resultMsg","등록 되었습니다.");
+        }else{
+            resultMap.put("resultCode","9999");
+            resultMap.put("resultMsg","데이터가 없습니다.");
+        }
+
+        return resultMap;
+    }
+
+    @PatchMapping("/updateToilet")
+    @ResponseBody
+    public Map<String,Object> updateToilet(@RequestBody Toilet toilet){
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        int insertResult = toiletService.updateToilet(toilet);
+        if(insertResult > 0){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","수정 되었습니다.");
         }else{
             resultMap.put("resultCode","9999");
             resultMap.put("resultMsg","데이터가 없습니다.");

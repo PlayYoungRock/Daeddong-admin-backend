@@ -153,8 +153,73 @@
 			limit 1;
 	</select>
 
+	<update id="updateToilet" parameterType="kr.co.daeddongadmin.toilet.domain.Toilet">
+		update `120BPM_TOILET` set
+			<if test="name != null and name != ''">
+				NAME = #{name},
+			</if>
+			<if test="latitude != null and latitude != ''">
+				LATITUDE = #{latitude},
+			</if>
+			<if test="longitude != null and longitude != ''">
+				LONGITUDE = #{longitude},
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS = #{address},
+			</if>
+			<if test="openTime != null and openTime != ''">
+				OPEN_TIME = #{openTime},
+			</if>
+			<if test="closeTime != null and closeTime != ''">
+				CLOSE_TIME = #{closeTime},
+			</if>
+			<if test="manageAgency != null and manageAgency != ''">
+				MANAGE_AGENCY = #{manageAgency},
+			</if>
+			<if test="maNum != null and maNum != ''">
+				MA_NUM = #{maNum},
+			</if>
+			<if test="toiletType != null and toiletType != ''">
+				TOILET_TYPE = #{toiletType},
+			</if>
+			<if test="countMan != null and countMan != ''">
+				COUNT_MAN = #{countMan},
+			</if>
+			<if test="countWomen != null and countWomen != ''">
+				COUNT_WOMEN = #{countWomen},
+			</if>
+			<if test="babyYn != null and babyYn != ''">
+				BABY_YN = #{babyYn},
+			</if>
+			<if test="unusualYn != null and unusualYn != ''">
+				UNUSUAL_YN = #{unusualYn},
+			</if>
+			<if test="cctvYn != null and cctvYn != ''">
+				CCTV_YN = #{cctvYn},
+			</if>
+			<if test="alarmYn != null and alarmYn != ''">
+				ALARM_YN = #{alarmYn},
+			</if>
+			<if test="pwdYn != null and pwdYn != ''">
+				PWD_YN = #{pwdYn},
+			</if>
+			<if test="pwd != null and pwd != ''">
+				PWD = #{pwd},
+			</if>
+			<if test="etc != null and etc != ''">
+				ETC = #{etc},
+			</if>
+			<if test="openYn != null and openYn != ''">
+				OPEN_YN = #{openYn},
+			</if>
+			MOD_ID = #{modId},
+			MOD_DT = now()
+		where SEQ = #{seq}
+	</update>
+
 	<update id="updateSido" parameterType="java.util.HashMap">
-		update `120BPM_TOILET` set SI = #{sido}, GUNGU = #{sigungu}, LONGITUDE= #{x}, LATITUDE = #{y}
+		update `120BPM_TOILET` set
+		                           SI = #{sido}, GUNGU = #{sigungu}, LONGITUDE= #{x}, LATITUDE = #{y}
 		                       where SEQ = #{seq}
 	</update>
 </mapper>
