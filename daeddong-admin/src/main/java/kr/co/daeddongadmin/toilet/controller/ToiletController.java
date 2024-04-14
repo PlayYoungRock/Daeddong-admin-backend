@@ -30,6 +30,14 @@ public class ToiletController {
     @Autowired
     private ToiletService toiletService;
 
+    /*
+	* 화장실 목록 조회
+	* index : 게시글 페이지
+	* count : 게시글 수
+	* sido : 시도
+	* gungu : 군구
+	* searchWord : 검색어
+어* */
     @GetMapping("/toiletList")
     @ResponseBody
     public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index,
@@ -39,13 +47,18 @@ public class ToiletController {
                                             @RequestParam(value="searchWord", defaultValue="")String searchWord
     ){
         Map<String,Object> resultMap = new HashMap<String,Object>();
-        int totalCount = toiletService.getToiletCount(gungu,searchWord);
+        int totalCount = toiletService.getToiletCount(sido,gungu,searchWord);
         List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord,sido);
             resultMap.put("resultCode","0000");
             resultMap.put("totalCount",totalCount);
             resultMap.put("toiletList",toiletList);
         return resultMap;
     }
+
+    /*
+	* 화장실 상세 조회
+	* seq : 화장실 고유번호
+	*  */
 
     @GetMapping("/toiletInfo")
     @ResponseBody
@@ -63,6 +76,10 @@ public class ToiletController {
         return resultMap;
     }
 
+    /*
+    * 화장실 삭제
+    * seq : 화장실 고유번호
+    * */
     @DeleteMapping("/deleteToilet")
     @ResponseBody
     public Map<String,Object> deleteToilet(@RequestParam(value="seq", defaultValue="0")String seq){
@@ -79,6 +96,10 @@ public class ToiletController {
         return resultMap;
     }
 
+
+    /*
+    * 화장실 등록
+    * */
     @PostMapping("/insertToilet")
     @ResponseBody
     public Map<String,Object> insertToilet(@RequestBody Toilet toilet){

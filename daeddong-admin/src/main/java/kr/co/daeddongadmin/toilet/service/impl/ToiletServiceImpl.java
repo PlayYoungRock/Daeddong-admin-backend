@@ -17,11 +17,8 @@ public class ToiletServiceImpl implements ToiletService {
 	@Autowired
 	private ToiletRepository toiletRepository;
 
-	/**
-	 * 진행중인 이벤트 리스트
-	 */
 	@Override
-	public List<Toilet> getToiletList(int index, int count, String gungu, String searchWord, String sido) {
+	public List<Toilet> getToiletList(int index, int count, String sido, String gungu, String searchWord) {
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("index", index);
 		paramMap.put("count", count);
@@ -32,8 +29,9 @@ public class ToiletServiceImpl implements ToiletService {
 	}
 
 	@Override
-	public int getToiletCount(String gungu, String searchWord) {
+	public int getToiletCount(String sido, String gungu, String searchWord) {
 		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("sido", sido);
 		paramMap.put("gungu", gungu);
 		paramMap.put("searchWord", searchWord);
 		return toiletRepository.getToiletCount(paramMap);
@@ -54,7 +52,6 @@ public class ToiletServiceImpl implements ToiletService {
 	public int deleteToilet(String seq) {
 		return toiletRepository.deleteToilet(seq);
 	}
-
 	@Override
 	public int insertToilet(Toilet toilet) {return toiletRepository.insertToilet(toilet);}
 	@Override
@@ -62,11 +59,6 @@ public class ToiletServiceImpl implements ToiletService {
 	@Override
 	public void updateSido(Map<String, Object> paramMap){
 		toiletRepository.updateSido(paramMap);
-	}
-
-	@Override
-	public int test(int test){
-		return 0;
 	}
 
 }
