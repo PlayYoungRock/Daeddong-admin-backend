@@ -3,6 +3,7 @@ package kr.co.daeddongadmin.admin.controller;
 import kr.co.daeddongadmin.admin.domain.Admin;
 import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.service.AdminService;
+import kr.co.daeddongadmin.common.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class AdminController {
         Map<String, String> response = new HashMap<>();
         try {
             HttpHeaders headers = new HttpHeaders();
-            JwtToken jwtToken = adminService.signIn(admin.getUsername(), admin.getPassword());
+            JwtToken jwtToken = adminService.signIn(admin.getUsername(), CommonUtil.toSHA256(admin.getPassword()));
             log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
             headers.add("Authorization", "Bearer " + jwtToken);
             response.put("message", "Login successful");
@@ -37,9 +39,10 @@ public class AdminController {
 
             return ResponseEntity.ok().headers(headers).body(response);
 
-//            return ResponseEntity.ok().headers(headers).body("Login successful");
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 

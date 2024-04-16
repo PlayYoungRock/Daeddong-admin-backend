@@ -1,5 +1,6 @@
 package kr.co.daeddongadmin.common;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -218,6 +221,21 @@ public class CommonUtil {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public static String toSHA256 (String original) throws NoSuchAlgorithmException {
+        String SHA = "";
+
+            MessageDigest sh = MessageDigest.getInstance("SHA-256");
+            sh.update(original.getBytes());
+            byte byteData[] = sh.digest();
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++){
+                sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+            }
+            SHA = sb.toString();
+
+        return SHA;
     }
 
 }
