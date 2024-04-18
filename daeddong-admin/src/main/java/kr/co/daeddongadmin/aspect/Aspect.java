@@ -1,6 +1,7 @@
 package kr.co.daeddongadmin.aspect;
 
 import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.exception.CustomException;
 import kr.co.daeddongadmin.jwt.JwtTokenProvider;
 import org.apache.poi.util.StringUtil;
 import org.aspectj.lang.annotation.Before;
@@ -30,7 +31,7 @@ public class Aspect {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }else{
-            throw new IllegalArgumentException("토큰 없음");
+            throw new CustomException("토큰이 없습니다.", "8888");
         }
 
     }
