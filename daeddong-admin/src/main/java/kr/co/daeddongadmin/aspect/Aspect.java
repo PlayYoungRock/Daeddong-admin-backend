@@ -31,7 +31,7 @@ public class Aspect {
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }else{
-            throw new CustomException("토큰이 없습니다.", "8888");
+            throw new CustomException("토큰이 없습니다.", "8000");
         }
 
     }

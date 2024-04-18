@@ -28,9 +28,6 @@ public class AdminController {
     @PostMapping("/login")
     public ResponseEntity<Map<String,String>> login(@RequestBody Admin admin) {
         Map<String, String> response = new HashMap<>();
-        if(true){
-            throw new CustomException("사용자 정의 예외가 발생했습니다.", "CUSTOM_ERROR_CODE");
-        }
         try {
             HttpHeaders headers = new HttpHeaders();
             JwtToken jwtToken = adminService.signIn(admin.getUsername(), CommonUtil.toSHA256(admin.getPassword()));

@@ -1,8 +1,10 @@
 package kr.co.daeddongadmin.admin.service.impl;
 
 import kr.co.daeddongadmin.admin.domain.JwtToken;
+import kr.co.daeddongadmin.admin.domain.LoginAdmin;
 import kr.co.daeddongadmin.admin.repository.AdminRepository;
 import kr.co.daeddongadmin.admin.service.AdminService;
+import kr.co.daeddongadmin.exception.CustomException;
 import kr.co.daeddongadmin.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,12 @@ public class AdminServiceImpl implements AdminService {
 		// 1. username + password 를 기반으로 Authentication 객체 생성
 		// 이때 authentication 은 인증 여부를 확인하는 authenticated 값이 false
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-
+		if(!authenticationToken.getCredentials().equals(adminRepository.findByUsername(username).get().getPassword())){
+			throw new CustomException("비밀번호가 일치하지 않습니다..", "1002");
+		}
 		// 2. 실제 검증. authenticate() 메서드를 통해 요청된 Member 에 대한 검증 진행
 		// authenticate 메서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드 실행
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
 		// 3. 인증 정보를 기반으로 JWT 토큰 생성
 		JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
 
