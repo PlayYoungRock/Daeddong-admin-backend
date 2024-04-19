@@ -1,7 +1,6 @@
 package kr.co.daeddongadmin.admin.service.impl;
 
 import kr.co.daeddongadmin.admin.domain.JwtToken;
-import kr.co.daeddongadmin.admin.domain.LoginAdmin;
 import kr.co.daeddongadmin.admin.repository.AdminRepository;
 import kr.co.daeddongadmin.admin.service.AdminService;
 import kr.co.daeddongadmin.exception.CustomException;

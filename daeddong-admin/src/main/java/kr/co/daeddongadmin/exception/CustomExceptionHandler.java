@@ -12,6 +12,6 @@ public class CustomExceptionHandler {
 }
 
     private static Object getCustomErrorResponse(String errorMessage, String errorCode) {
-        return "{\"resultCode\": \"" + errorCode + "\", \"errorMessage\": \"" + errorMessage + "\"}";
+        return "{\"resultCode\": \"" + errorCode + "\", \"message\": \"" + errorMessage + "\"}";
     }
 }

@@ -49,10 +49,16 @@ public class ToiletController {
         Map<String,Object> resultMap = new HashMap<String,Object>();
         int totalCount = toiletService.getToiletCount(sido,gungu,searchWord);
         List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord,sido);
+        if(!toiletList.isEmpty()){
             resultMap.put("resultCode","0000");
             resultMap.put("totalCount",totalCount);
             resultMap.put("toiletList",toiletList);
-        return resultMap;
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","데이터 없음");
+        }
+
+       return resultMap;
     }
 
     /*
@@ -69,7 +75,7 @@ public class ToiletController {
             resultMap.put("resultCode","0000");
             resultMap.put("toiletInfo",toiletInfo);
         }else{
-            resultMap.put("resultCode","9999");
+            resultMap.put("resultCode","1001");
             resultMap.put("resultMsg","데이터가 없습니다.");
         }
 
@@ -89,7 +95,7 @@ public class ToiletController {
             resultMap.put("resultCode","0000");
             resultMap.put("resultMsg","삭제되었습니다.");
         }else{
-            resultMap.put("resultCode","9999");
+            resultMap.put("resultCode","1001");
             resultMap.put("resultMsg","데이터가 없습니다.");
         }
 
@@ -109,8 +115,8 @@ public class ToiletController {
             resultMap.put("resultCode","0000");
             resultMap.put("resultMsg","등록 되었습니다.");
         }else{
-            resultMap.put("resultCode","9999");
-            resultMap.put("resultMsg","데이터가 없습니다.");
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","등록 실패.");
         }
 
         return resultMap;
@@ -125,8 +131,8 @@ public class ToiletController {
             resultMap.put("resultCode","0000");
             resultMap.put("resultMsg","수정 되었습니다.");
         }else{
-            resultMap.put("resultCode","9999");
-            resultMap.put("resultMsg","데이터가 없습니다.");
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","수정 실패.");
         }
 
         return resultMap;

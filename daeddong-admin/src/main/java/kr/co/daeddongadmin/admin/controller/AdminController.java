@@ -33,7 +33,7 @@ public class AdminController {
             JwtToken jwtToken = adminService.signIn(admin.getUsername(), CommonUtil.toSHA256(admin.getPassword()));
             log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
             headers.add("Authorization", "Bearer " + jwtToken);
-            response.put("message", "Login successful");
+            response.put("resultMsg", "Login successful");
             response.put("resultCode", "0000");
             response.put("accessToken", jwtToken.getAccessToken()); // AccessToken을 response에 추가
             response.put("refreshToken", jwtToken.getRefreshToken()); // RefreshToken을 response에 추가
