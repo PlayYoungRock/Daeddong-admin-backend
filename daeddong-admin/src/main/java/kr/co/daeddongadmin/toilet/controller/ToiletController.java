@@ -1,9 +1,11 @@
 package kr.co.daeddongadmin.toilet.controller;
 
+import kr.co.daeddongadmin.common.CommonUtil;
 import kr.co.daeddongadmin.toilet.domain.Toilet;
 import kr.co.daeddongadmin.toilet.service.ToiletService;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -40,15 +43,11 @@ public class ToiletController {
 어* */
     @GetMapping("/toiletList")
     @ResponseBody
-    public Map<String,Object> getToiletList(@RequestParam(value="index", defaultValue="0")int index,
-                                            @RequestParam(value="count", defaultValue="10")int count,
-                                            @RequestParam(value="gungu", defaultValue="")String gungu,
-                                            @RequestParam(value="sido", defaultValue="")String sido,
-                                            @RequestParam(value="searchWord", defaultValue="")String searchWord
-    ){
+    public Map<String,Object> getToiletList(HttpServletRequest request){
+        Map<String,Object> paramMap = CommonUtil.customMap(request);
         Map<String,Object> resultMap = new HashMap<String,Object>();
-        int totalCount = toiletService.getToiletCount(sido,gungu,searchWord);
-        List<Toilet> toiletList = toiletService.getToiletList(index,count,gungu,searchWord,sido);
+        int totalCount = toiletService.getToiletCount(paramMap);
+        List<Toilet> toiletList = toiletService.getToiletList(paramMap);
         if(!toiletList.isEmpty()){
             resultMap.put("resultCode","0000");
             resultMap.put("totalCount",totalCount);

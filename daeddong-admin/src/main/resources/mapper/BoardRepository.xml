@@ -31,8 +31,19 @@
 		order by SEQ desc
 	</select>
 
+	<select id="selectBoardCount" resultType="kr.co.daeddongadmin.board.domain.Board" parameterType="java.util.HashMap">
+		/*selectBoardList*/
+		select
+			count(*) cnt
+		from 120BPM_BOARD a
+		where
+			BBS_ID=#{bbsId}
+		  and DEL_YN = 'N'
+		order by SEQ desc
+	</select>
+
 	<!-- 게시글 상세 -->
-	<select id="selectBoardInfo" resultType="kr.co.daeddongadmin.board.domain.Board" parameterType="kr.co.daeddongadmin.board.domain.Board">
+	<select id="selectBoardInfo" resultType="kr.co.daeddongadmin.board.domain.Board" parameterType="java.util.HashMap">
 		/*selectBoardView*/
 		select
 		a.SEQ

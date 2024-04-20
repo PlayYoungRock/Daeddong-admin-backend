@@ -4,6 +4,7 @@ import kr.co.daeddongadmin.board.domain.Board;
 import kr.co.daeddongadmin.board.repository.BoardRepository;
 import kr.co.daeddongadmin.board.service.BoardService;
 import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.toilet.domain.Toilet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -39,34 +40,47 @@ public class BoardController {
 
     @GetMapping(value = "/board/{bbsId}List")
     @ResponseBody
-    public Map<String,Object> boardList(@PathVariable String bbsId, HttpServletRequest request) throws IOException, SQLException, RuntimeException {
+    public Map<String,Object> boardList(@PathVariable String bbsId, HttpServletRequest request){
         Map<String,Object> resultMap = new HashMap<>();
+        Map<String,Object> paramMap = CommonUtil.customMap(request);
+        paramMap.put("bbsId",bbsId);
         //TODO : 게시판 목록 상단 고정 추가 예정
         //TODO : 로그인 유저 권한 추가 예정
-        //TODO : 디폴트 bbsId 값 추가
-        List<Board> boardList = boardService.selectBoardList(bbsId);	//게시글 목록
-        resultMap.put("boardList",boardList);
+        List<Board> boardList = boardService.selectBoardList(paramMap);	//게시글 목록
+        int boardCount = boardService.selectBoardCount(paramMap);
+        if(!boardList.isEmpty()){
+            resultMap.put("resultCode","0000");
+            resultMap.put("boardCount",boardCount);
+            resultMap.put("boardList",boardList);
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","데이터 없음");
+        }
         return resultMap;
 
     }
 
     @GetMapping(value = "/board/{bbsId}Info")
     @ResponseBody
-    public Map<String,Object> boardInfo(@PathVariable String bbsId,@RequestBody Board board) throws RuntimeException {
+    public Map<String,Object> boardInfo(@PathVariable String bbsId,@RequestParam String seq) throws RuntimeException {
         Map<String,Object> resultMap = new HashMap<>();
-        board.setBbsId(bbsId);
         //TODO : 게시판 목록 상단 고정 추가 예정
         //TODO : 로그인 유저 권한 추가 예정
-        //TODO : 디폴트 bbsId 값 추가
-        Board boardInfo = boardService.selectBoardInfo(board);	//게시글 목록
-        resultMap.put("boardInfo",boardInfo);
+        Board boardInfo = boardService.selectBoardInfo(bbsId,seq);	//게시글 목록
+        if(boardInfo != null){
+            resultMap.put("resultCode","0000");
+            resultMap.put("boardInfo",boardInfo);
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","데이터가 없습니다.");
+        }
         return resultMap;
 
     }
 
-    @PostMapping(value = "/board/insertBoard")
+    @PostMapping(value = "/board/insert{bbsId}")
     @ResponseBody
-    public Map<String,Object> insertBoard(@RequestBody Board board,
+    public Map<String,Object> insertBoard(@PathVariable String bbsId,@RequestBody Board board,
 //                                     final MultipartHttpServletRequest multiRequest,
                               HttpServletRequest request) throws IOException, SQLException, RuntimeException, NoSuchAlgorithmException {
         Map<String,Object> resultMap = new HashMap<>();

@@ -9,7 +9,8 @@ import java.util.Map;
 @Mapper
 public interface BoardRepository {
     List<Board> selectBoardList(Map<String,Object> paramMap);
-    Board selectBoardInfo(Board board);
+    int selectBoardCount(Map<String,Object> paramMap);
+    Board selectBoardInfo(Map<String,Object> paramMap);
 
     int insertBoard(Board board);
     int updateBoard(Board board);

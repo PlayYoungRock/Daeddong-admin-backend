@@ -18,15 +18,21 @@ public class BoardServiceImpl implements BoardService {
 	private BoardRepository boardRepository;
 
 	@Override
-	public List<Board> selectBoardList(String bbsId) {
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("bbsId", bbsId);
+	public List<Board> selectBoardList(Map<String, Object> paramMap) {
 		return boardRepository.selectBoardList(paramMap);
 	}
 
 	@Override
-	public Board selectBoardInfo(Board board) {
-		return boardRepository.selectBoardInfo(board);
+	public int selectBoardCount(Map<String, Object> paramMap) {
+		return boardRepository.selectBoardCount(paramMap);
+	}
+
+	@Override
+	public Board selectBoardInfo(String bbsId, String seq) {
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("seq", seq);
+		paramMap.put("bbsId", bbsId);
+		return boardRepository.selectBoardInfo(paramMap);
 	}
 
 	@Override

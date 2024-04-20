@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -236,6 +237,18 @@ public class CommonUtil {
             SHA = sb.toString();
 
         return SHA;
+    }
+
+    public static Map<String, Object> customMap(HttpServletRequest request) {
+        Map<String, Object> param = new HashMap<>();
+
+        Enumeration<String> en = request.getParameterNames();
+        while ( en.hasMoreElements() ){
+            String key    = en.nextElement();
+            String value  = request.getParameter(key);
+            param.put(key , value);
+        }
+        return param;
     }
 
 }

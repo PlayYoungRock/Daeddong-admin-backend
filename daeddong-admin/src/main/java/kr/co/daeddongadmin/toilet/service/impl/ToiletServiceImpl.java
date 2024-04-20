@@ -18,22 +18,12 @@ public class ToiletServiceImpl implements ToiletService {
 	private ToiletRepository toiletRepository;
 
 	@Override
-	public List<Toilet> getToiletList(int index, int count, String sido, String gungu, String searchWord) {
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("index", index);
-		paramMap.put("count", count);
-		paramMap.put("gungu", gungu);
-		paramMap.put("sido", sido);
-		paramMap.put("searchWord", searchWord);
+	public List<Toilet> getToiletList(Map<String, Object> paramMap) {
 		return toiletRepository.getToiletList(paramMap);
 	}
 
 	@Override
-	public int getToiletCount(String sido, String gungu, String searchWord) {
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("sido", sido);
-		paramMap.put("gungu", gungu);
-		paramMap.put("searchWord", searchWord);
+	public int getToiletCount(Map<String, Object> paramMap) {
 		return toiletRepository.getToiletCount(paramMap);
 	}
 

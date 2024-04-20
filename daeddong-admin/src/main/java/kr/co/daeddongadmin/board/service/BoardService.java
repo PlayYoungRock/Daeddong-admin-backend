@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface BoardService {
-    public List<Board> selectBoardList(String bbsId);
-    public Board selectBoardInfo(Board board);
+    public List<Board> selectBoardList(Map<String, Object> paramMap);
+    public int selectBoardCount(Map<String, Object> paramMap);
+    public Board selectBoardInfo(String bbsId, String seq);
 
     public int insertBoard(Board board);
     public int updateBoard(Board board);

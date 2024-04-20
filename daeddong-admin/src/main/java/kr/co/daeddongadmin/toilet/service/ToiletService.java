@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface ToiletService {
-    List<Toilet> getToiletList(int index, int count, String gungu, String searchWord,String sido);
-    int getToiletCount(String sido,String gungu, String searchWord);
+    List<Toilet> getToiletList(Map<String, Object> paramMap);
+    int getToiletCount(Map<String, Object> paramMap);
     Toilet getToiletInfo(String seq);
     Toilet getIsNullSidoToiletList();
     int deleteToilet(String seq);
     int insertToilet(Toilet toilet);
     int updateToilet(Toilet toilet);
     void updateSido(Map<String, Object> paramMap);
-
 }
