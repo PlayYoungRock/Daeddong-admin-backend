@@ -19,6 +19,8 @@ public class ToiletServiceImpl implements ToiletService {
 
 	@Override
 	public List<Toilet> getToiletList(Map<String, Object> paramMap) {
+		paramMap.put("index",Integer.parseInt(paramMap.get("index").toString()));
+		paramMap.put("count",Integer.parseInt(paramMap.get("count").toString()));
 		return toiletRepository.getToiletList(paramMap);
 	}
 

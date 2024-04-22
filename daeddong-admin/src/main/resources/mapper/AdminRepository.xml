@@ -16,4 +16,35 @@
 		from 120BPM_ADMIN
 		where USER_ID = #{username}
 	</select>
+
+	<update id="updatePasswordFailCount" parameterType="String">
+		update 120BPM_ADMIN set FAIL_PASSWORD_CNT = FAIL_PASSWORD_CNT+1, LAST_LOGIN = now() where USER_ID = #{username}
+	</update>
+
+	<update id="updatePasswordReset" parameterType="String">
+		update 120BPM_ADMIN set FAIL_PASSWORD_CNT = 0, LAST_LOGIN = now() where USER_ID = #{username}
+	</update>
+
+	<select id="selectPasswordFailCount" parameterType="String" resultType="kr.co.daeddongadmin.admin.domain.Admin">
+		select
+			FAIL_PASSWORD_CNT,
+			DATE_FORMAT(LAST_LOGIN, '%Y-%m-%d %H:%i:%s') as lastLogin
+		from 120BPM_ADMIN where USER_ID = #{username};
+	</select>
+
+	<insert id="insertAdminLoginLog" parameterType="kr.co.daeddongadmin.admin.domain.AdminLog">
+		insert into 120BPM_ADMIN_LOGIN_LOG(
+				LOGIN_ID,
+				LOGIN_IP,
+				LOGIN_RESULT,
+				LOGIN_RESULT_MSG,
+				LOGIN_DATE
+		)values (
+		         #{loginId},
+		         #{loginIp},
+		         #{loginResult},
+		         #{loginResultMsg},
+		         now()
+				)
+	</insert>
 </mapper>

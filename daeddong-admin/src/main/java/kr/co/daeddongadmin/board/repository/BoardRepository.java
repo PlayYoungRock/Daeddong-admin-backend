@@ -14,5 +14,6 @@ public interface BoardRepository {
 
     int insertBoard(Board board);
     int updateBoard(Board board);
-    int incrementBoardViews(Board board);
+    int deleteBoard(Board board);
+    void incrementBoardViews(String seq);
 }

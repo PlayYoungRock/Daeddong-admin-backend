@@ -10,10 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class CommonUtil {
 
@@ -249,6 +249,84 @@ public class CommonUtil {
             param.put(key , value);
         }
         return param;
+    }
+
+    /**
+     * 오늘날짜를 패턴에 맞게 가져오기
+     * @param pattern (yyyy-MM-dd : 2019-02-28 , yyyy-MM-dd HH:mm:ss.SSS : 2019-02-28 01:59:28.002
+     * @return
+     */
+    public static String getDatePattern(String pattern) {
+        String rtnStr = null;
+        try {
+            java.text.SimpleDateFormat sdfCurrent = new java.text.SimpleDateFormat(pattern, Locale.KOREA);
+            java.sql.Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+            rtnStr = sdfCurrent.format(ts.getTime());
+        } catch (IllegalArgumentException e) {
+//            logger.error("예외 상황 발생");
+        }
+        return rtnStr;
+    }
+
+    /**
+     * 영문 대, 소문자, 숫자가 조합된 랜덤한 문자열을 구한다.
+     * @param length 구하고자 하는 문자열 갯수
+     * @return 입력된 길이의 랜덤 문자열
+     */
+    public static String getRandomString(int length) {
+        String[] arrString = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","x","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","X"};
+        java.util.Random rnd = new java.util.Random();
+        String returnValue = "";
+        for(int i =0; i< length; i++) {
+            returnValue+= arrString[rnd.nextInt(arrString.length-1)];
+        }
+        return returnValue;
+
+    }
+
+    public static long gapTime(String baseTimeStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime baseTime = LocalDateTime.parse(baseTimeStr, formatter);
+
+        // 현재 시간
+        LocalDateTime now = LocalDateTime.now();
+
+        // 시간 차이 계산
+        Duration duration = Duration.between(baseTime, now);
+        long minutesDifference = duration.toMinutes();
+
+        return minutesDifference;
+    }
+
+    public static String getAdminIp(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-RealIP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("REMOTE_ADDR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+
+        return ip;
     }
 
 }

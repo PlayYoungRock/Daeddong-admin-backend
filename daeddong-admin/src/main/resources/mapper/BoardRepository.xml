@@ -7,10 +7,6 @@
 		select
 		a.SEQ
 		, a.BBS_ID
-		,case
-		when a.OPEN_YN = 'Y' then '공개'
-		when a.OPEN_YN = 'N' then '비공개'
-		end OPEN_YN
 		, a.TYPE_ETC
 		, a.TITLE
 		, a.CONTENTS
@@ -23,23 +19,28 @@
 		, a.EDIT_DATE
 		, a.HIT
 		, a.ORDERS
--- 		, (SELECT file_NAME FROM t_file WHERE file_id = a.file_id LIMIT 1) file_name
 		from 120BPM_BOARD a
 		where
-		BBS_ID=#{bbsId}
-		and DEL_YN = 'N'
+		a.DEL_YN = 'N'
+		and a.BBS_ID = #{bbsId}
+		<if test="searchWord != null and searchWord != ''">
+			AND a.TITLE LIKE CONCAT('%', #{searchWord}, '%')
+		</if>
 		order by SEQ desc
+		limit #{index}, #{count};
 	</select>
 
-	<select id="selectBoardCount" resultType="kr.co.daeddongadmin.board.domain.Board" parameterType="java.util.HashMap">
-		/*selectBoardList*/
+	<select id="selectBoardCount" resultType="int" parameterType="java.util.HashMap">
+		/*selectBoardCount*/
 		select
-			count(*) cnt
+			count(*) totalCnt
 		from 120BPM_BOARD a
 		where
-			BBS_ID=#{bbsId}
-		  and DEL_YN = 'N'
-		order by SEQ desc
+		a.DEL_YN = 'N'
+		and a.BBS_ID = #{bbsId}
+		<if test="searchWord != null and searchWord != ''">
+			AND a.TITLE LIKE CONCAT('%', #{searchWord}, '%')
+		</if>
 	</select>
 
 	<!-- 게시글 상세 -->
@@ -74,14 +75,28 @@
 	<update id="updateBoard" parameterType="kr.co.daeddongadmin.board.domain.Board">
 		/*updateBoard*/
 		update 120BPM_BOARD set
-			OPEN_YN = #{openYn}
-						 , TYPE_ETC = #{typeEtc}
-						 , TITLE = #{title}
-						 , CONTENTS = #{contents}
-						 , FILE_ID = #{fileId}
-						 , EDIT_ID = #{editId}
-						 , EDIT_NM = #{editNm}
-						 , EDIT_DATE = NOW()
+			<if test="openYn != null and openYn != ''">
+				OPEN_YN = #{openYn}
+			</if>
+			<if test="typeEtc != null and typeEtc != ''">
+				, TYPE_ETC = #{typeEtc}
+			</if>
+			<if test="title != null and title != ''">
+				, TITLE = #{title}
+			</if>
+			<if test="contents != null and contents != ''">
+				, CONTENTS = #{contents}
+			</if>
+			<if test="fileId != null and fileId != ''">
+				, FILE_ID = #{fileId}
+			</if>
+			<if test="editId != null and editId != ''">
+				, EDIT_ID = #{editId}
+			</if>
+			<if test="editNm != null and editN != ''">
+				, EDIT_NM = #{editNm}
+			</if>
+				, EDIT_DATE = NOW()
 		where
 			SEQ = #{seq}
 	</update>
@@ -123,4 +138,16 @@
 				, 'N'
 				)
 	</insert>
+
+	<!-- 게시글 삭제 -->
+	<update id="deleteBoard" parameterType="kr.co.daeddongadmin.board.domain.Board">
+		/*deleteBoard*/
+		update 120BPM_BOARD set
+			OPEN_YN = N
+			, EDIT_NM = #{editNm}
+			, EDIT_DATE = NOW()
+		where
+		SEQ = #{seq}
+	</update>
+
 </mapper>
