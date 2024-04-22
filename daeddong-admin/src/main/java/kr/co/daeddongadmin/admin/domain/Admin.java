@@ -33,7 +33,8 @@ public class Admin implements UserDetails {
         private String mod_date;
         private String mod_id;
         private String access_ip;
-        private String last_login;
+        private String lastLogin;
+        private int failPasswordCnt;
     @Builder.Default
     private List<String> roles = new ArrayList<>();
     @Override
