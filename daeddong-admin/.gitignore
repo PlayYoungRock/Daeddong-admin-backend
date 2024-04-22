@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  build:
+    commands:
+      - chmod +x ./script/appstart.sh
+      - chmod +x ./gradlew
+      - ./gradlew build
+artifacts:
+  files:
+    - 'build/libs/*.jar'
+    - 'application.properties'
+    - 'script/*'
