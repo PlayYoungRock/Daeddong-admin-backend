@@ -1,52 +1,107 @@
 package kr.co.daeddongadmin.admin.controller;
 
 import kr.co.daeddongadmin.admin.domain.Admin;
-import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.service.AdminService;
 import kr.co.daeddongadmin.common.CommonUtil;
-import kr.co.daeddongadmin.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @Controller
 @Slf4j
+@RequestMapping(value = "/admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
-    @PostMapping("/login")
-    public ResponseEntity<Map<String,String>> login(@RequestBody Admin admin, HttpServletRequest request) {
-        Map<String, String> response = new HashMap<>();
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            JwtToken jwtToken = adminService.signIn(admin.getUsername(), CommonUtil.toSHA256(admin.getPassword()),request);
-            log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
-            headers.add("Authorization", "Bearer " + jwtToken);
-            response.put("resultMsg", "Login successful");
-            response.put("resultCode", "0000");
-            response.put("accessToken", jwtToken.getAccessToken()); // AccessToken을 response에 추가
-            response.put("refreshToken", jwtToken.getRefreshToken()); // RefreshToken을 response에 추가
 
-            return ResponseEntity.ok().headers(headers).body(response);
-
-        } catch (UsernameNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+    @GetMapping(value = "/adminList")
+    @ResponseBody
+    public Map<String,Object> adminList(HttpServletRequest request){
+        Map<String,Object> resultMap = new HashMap<>();
+        Map<String,Object> paramMap = CommonUtil.customMap(request);
+        List<Admin> adminList = adminService.selectAdminList(paramMap);	//게시글 목록
+        int adminCount = adminService.selectAdminCount(paramMap);
+        if(!adminList.isEmpty()){
+            resultMap.put("resultCode","0000");
+            resultMap.put("adminCount",adminCount);
+            resultMap.put("adminList",adminList);
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","데이터 없음");
         }
+        return resultMap;
+
+    }
+
+    @GetMapping(value = "/adminInfo")
+    @ResponseBody
+    public Map<String,Object> adminInfo(@RequestParam String id) throws RuntimeException {
+        Map<String,Object> resultMap = new HashMap<>();
+        Admin adminInfo = adminService.selectAdminInfo(id);	//게시글 목록
+        if(adminInfo != null){
+            resultMap.put("resultCode","0000");
+            resultMap.put("adminInfo",adminInfo);
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","데이터가 없습니다.");
+        }
+        return resultMap;
+
+    }
+
+    @PostMapping(value = "/insertAdmin")
+    @ResponseBody
+    public Map<String,Object> insertAdmin(@RequestBody Admin admin) {
+        Map<String,Object> resultMap = new HashMap<>();
+        int result = adminService.insertAdmin(admin);
+        if(result == 1){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","등록되었습니다.");
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","등록 실패.");
+        }
+
+        return resultMap;
+    }
+
+    @PatchMapping(value = "/updateAdmin")
+    @ResponseBody
+    public Map<String,Object> updateBoard(@RequestBody Admin admin){
+        Map<String,Object> resultMap = new HashMap<>();
+        int result = adminService.updateAdmin(admin);
+        if(result == 1){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","등록되었습니다.");
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","수정 실패.");
+        }
+
+        return resultMap;
+    }
+
+    @DeleteMapping(value = "/deleteAdmin")
+    @ResponseBody
+    public Map<String,Object> deleteAdmin(@RequestBody String id){
+        Map<String,Object> resultMap = new HashMap<>();
+        int result = adminService.deleteAdmin(id);
+        if(result == 1){
+            resultMap.put("resultCode","0000");
+            resultMap.put("resultMsg","삭제되었습니다.");
+        }else{
+            resultMap.put("resultCode","1001");
+            resultMap.put("resultMsg","삭제 실패.");
+        }
+
+        return resultMap;
     }
 
 

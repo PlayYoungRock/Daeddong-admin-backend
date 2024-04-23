@@ -8,14 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -28,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = "/toilet")
 public class ToiletController {
 
     @Autowired
@@ -149,7 +143,6 @@ public class ToiletController {
         try {
             String address = to.getAddress();
             if(StringUtil.isNotBlank(address)) {
-                System.out.println("address = " + address);
                 String apiURL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + URLEncoder.encode(address, "UTF-8");
                 URL url = new URL(apiURL);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -178,10 +171,7 @@ public class ToiletController {
 // JSON 문자열을 JSONObject로 파싱
                 JSONObject jsonObject = new JSONObject(responseBody);
                 int totcnt = jsonObject.getJSONObject("meta").getInt("totalCount");
-                System.out.println("totcnt = " + totcnt);
                 if (totcnt > 0) {
-
-
                     // addresses 배열에서 첫 번째 주소 정보 추출
                     JSONArray addresses = jsonObject.getJSONArray("addresses");
                     JSONObject addressInfo = addresses.getJSONObject(0);
@@ -191,7 +181,6 @@ public class ToiletController {
                     String gungu = addressInfo.getJSONArray("addressElements").getJSONObject(1).getString("longName");
                     String xCoord = addressInfo.getString("x");
                     String yCoord = addressInfo.getString("y");
-                    System.out.println("gungu = " + gungu);
                     paramMap.put("sido", sido);
                     paramMap.put("sigungu", gungu);
                     paramMap.put("x", xCoord);

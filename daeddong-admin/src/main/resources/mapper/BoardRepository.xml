@@ -7,14 +7,11 @@
 		select
 		a.SEQ
 		, a.BBS_ID
-		, a.TYPE_ETC
 		, a.TITLE
 		, a.CONTENTS
 		, a.FILE_ID
-		, a.INPUT_ID
 		, a.INPUT_NM
 		, a.INPUT_DATE
-		, a.EDIT_ID
 		, a.EDIT_NM
 		, a.EDIT_DATE
 		, a.HIT
@@ -53,14 +50,11 @@
 		when a.OPEN_YN = 'Y' then '공개'
 		when a.OPEN_YN = 'N' then '비공개'
 		end OPEN_YN
-		, a.TYPE_ETC
 		, a.TITLE
 		, a.CONTENTS
 		, a.FILE_ID
-		, a.INPUT_ID
 		, a.INPUT_NM
 		, a.INPUT_DATE
-		, a.EDIT_ID
 		, a.EDIT_NM
 		, a.EDIT_DATE
 		, a.HIT
@@ -78,9 +72,6 @@
 			<if test="openYn != null and openYn != ''">
 				OPEN_YN = #{openYn}
 			</if>
-			<if test="typeEtc != null and typeEtc != ''">
-				, TYPE_ETC = #{typeEtc}
-			</if>
 			<if test="title != null and title != ''">
 				, TITLE = #{title}
 			</if>
@@ -89,9 +80,6 @@
 			</if>
 			<if test="fileId != null and fileId != ''">
 				, FILE_ID = #{fileId}
-			</if>
-			<if test="editId != null and editId != ''">
-				, EDIT_ID = #{editId}
 			</if>
 			<if test="editNm != null and editN != ''">
 				, EDIT_NM = #{editNm}
@@ -115,11 +103,9 @@
 		insert into 120BPM_BOARD(
 							 BBS_ID
 						   , OPEN_YN
-						   , TYPE_ETC
 						   , TITLE
 						   , CONTENTS
 						   , FILE_ID
-						   , INPUT_ID
 						   , INPUT_NM
 						   , INPUT_DATE
 						   , HIT
@@ -127,11 +113,9 @@
 		) values(
 					#{bbsId}
 				, #{openYn}
-				, #{typeEtc}
 				, #{title}
 				, #{contents}
 				, #{fileId}
-				, #{inputId}
 				, #{inputNm}
 				, NOW()
 				, '0'

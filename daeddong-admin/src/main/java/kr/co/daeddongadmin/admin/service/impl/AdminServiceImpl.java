@@ -5,8 +5,10 @@ import kr.co.daeddongadmin.admin.domain.AdminLog;
 import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.repository.AdminRepository;
 import kr.co.daeddongadmin.admin.service.AdminService;
+import kr.co.daeddongadmin.board.domain.Board;
 import kr.co.daeddongadmin.common.CommonUtil;
 import kr.co.daeddongadmin.exception.CustomException;
+import kr.co.daeddongadmin.file.domain.File;
 import kr.co.daeddongadmin.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -41,7 +48,6 @@ public class AdminServiceImpl implements AdminService {
 		adminLog.setLoginIp(CommonUtil.getAdminIp(request));
 		//현재시간 기준으로 입력한 시간과 분 차이 체크 로직
 		long minutesDifference = CommonUtil.gapTime(admin.getLastLogin());
-		System.out.println("minutesDifference = " + minutesDifference);
 		//현재 시간이 기준 시간으로부터 마지막 로그인 일자가 5분 이상 경과하였는지,비밀번호 틀린횟수가 5회 이상인지 체크
 		if (admin.getFailPasswordCnt() > 5  && minutesDifference < 6) {
 			adminLog.setLoginResult("1003");
@@ -72,6 +78,37 @@ public class AdminServiceImpl implements AdminService {
 		JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
 
 		return jwtToken;
+	}
+
+	@Override
+	public List<Admin> selectAdminList(Map<String, Object> paramMap) {
+		paramMap.put("index",Integer.parseInt(paramMap.get("index").toString()));
+		paramMap.put("count",Integer.parseInt(paramMap.get("count").toString()));
+		return adminRepository.selectAdminList(paramMap);
+	}
+
+	@Override
+	public int selectAdminCount(Map<String, Object> paramMap) {
+		return adminRepository.selectAdminCount(paramMap);
+	}
+
+	@Override
+	public Admin selectAdminInfo(String id) {
+		return adminRepository.selectAdminInfo(id);
+	}
+
+	@Override
+	public int insertAdmin(Admin admin) {
+		return adminRepository.insertAdmin(admin);
+	}
+	@Override
+	public int updateAdmin(Admin admin) {
+		return adminRepository.updateAdmin(admin);
+	}
+
+	@Override
+	public int deleteAdmin(String id) {
+		return adminRepository.deleteAdmin(id);
 	}
 
 }

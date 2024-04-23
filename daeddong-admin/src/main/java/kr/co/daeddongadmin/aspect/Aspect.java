@@ -24,7 +24,7 @@ public class Aspect {
             "@annotation(org.springframework.web.bind.annotation.GetMapping))" +
             "@annotation(org.springframework.web.bind.annotation.PostMapping))" +
             "@annotation(org.springframework.web.bind.annotation.PatchMapping))" +
-            "&& !execution(* kr.co.daeddongadmin.admin.controller.AdminController.login())")
+            "&& !execution(* kr.co.daeddongadmin.admin.controller.AuthController.login())")
     public void checkJwtToken() {
         String token = CommonUtil.resolveToken(request);
         if(StringUtil.isNotBlank(token) && jwtTokenProvider.validateToken(token)){

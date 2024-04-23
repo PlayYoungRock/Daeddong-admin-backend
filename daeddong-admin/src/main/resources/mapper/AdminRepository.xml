@@ -47,4 +47,77 @@
 		         now()
 				)
 	</insert>
+
+	<select id="selectAdminList" parameterType="java.util.HashMap" resultType="kr.co.daeddongadmin.admin.domain.Admin">
+		select
+			ID,
+			USER_ID as username,
+			PASSWORD,
+			ROLES,
+			CREATE_DATE,
+			CREATE_ID,
+			MOD_DATE,
+			MOD_ID,
+			ACCESS_IP,
+			LAST_LOGIN
+		from 120BPM_ADMIN
+		<where>
+			<if test="searchWord != null and searchWord != ''">
+				AND USER_ID LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+		order by ID desc
+			limit #{index}, #{count};
+	</select>
+	<select id="selectAdminInfo" parameterType="String" resultType="kr.co.daeddongadmin.admin.domain.Admin">
+		select
+			ID,
+			USER_ID as username,
+			PASSWORD,
+			ROLES,
+			CREATE_DATE,
+			CREATE_ID,
+			MOD_DATE,
+			MOD_ID,
+			ACCESS_IP,
+			LAST_LOGIN
+		from 120BPM_ADMIN
+		where ID = #{id}
+	</select>
+
+	<insert id="insertAdmin" parameterType="kr.co.daeddongadmin.admin.domain.Admin">
+		INSERT INTO 120BPM_ADMIN(
+			 USER_ID,
+			 PASSWORD,
+			 FAIL_PASSWORD_CNT,
+			 ROLES,
+			 CREATE_DATE,
+			 CREATE_ID,
+		 	 NICKNAME
+		 )
+		VALUES(
+			#{userId},
+			#{password},
+			0,
+			#{roles},
+			now(),
+			#{createId},
+			#{nickName}
+		);
+	</insert>
+
+	<update id="updateAdmin" parameterType="kr.co.daeddongadmin.admin.domain.Admin">
+		update 120BPM_ADMIN set
+			PASSWORD = #{password},
+			ROLES = #{roles},
+			MOD_DATE = now(),
+			MOD_ID = #{modId},
+			NICKNAME = #{nickName}
+		where ID = #{id}
+	</update>
+
+	<delete id="deleteAdmin" parameterType="String">
+		delete from 120BPM_ADMIN where ID = #{id}
+	</delete>
+
 </mapper>
