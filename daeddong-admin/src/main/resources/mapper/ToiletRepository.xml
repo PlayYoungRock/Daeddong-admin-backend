@@ -41,7 +41,7 @@
 				AND NAME LIKE CONCAT('%', #{searchWord}, '%')
 			</if>
 		</where>
-		order by SEQ asc
+		order by SEQ desc
 		limit #{index}, #{count};
 	</select>
 
@@ -104,6 +104,8 @@
 		 LATITUDE,
 		 LONGITUDE,
 		 ADDRESS,
+		 SI,
+		 GUNGU,
 		 OPEN_TIME,
 		 CLOSE_TIME,
 		 REG_DT,
@@ -127,6 +129,8 @@
 				  #{latitude},
 				  #{longitude},
 				  #{address},
+		       #{si},
+		       #{gungu},
 				  #{openTime},
 				  #{closeTime},
 				  now(),

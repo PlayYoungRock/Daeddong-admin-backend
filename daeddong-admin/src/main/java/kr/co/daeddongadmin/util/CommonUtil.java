@@ -1,11 +1,9 @@
-package kr.co.daeddongadmin.common;
+package kr.co.daeddongadmin.util;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;

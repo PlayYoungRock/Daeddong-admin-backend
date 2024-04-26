@@ -1,6 +1,6 @@
 package kr.co.daeddongadmin.aspect;
 
-import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.util.CommonUtil;
 import kr.co.daeddongadmin.exception.CustomException;
 import kr.co.daeddongadmin.jwt.JwtTokenProvider;
 import org.apache.poi.util.StringUtil;
@@ -21,10 +21,11 @@ public class Aspect {
     private JwtTokenProvider jwtTokenProvider;
 
     @Before("(@annotation(org.springframework.web.bind.annotation.RequestMapping) || " +
-            "@annotation(org.springframework.web.bind.annotation.GetMapping))" +
-            "@annotation(org.springframework.web.bind.annotation.PostMapping))" +
+            "@annotation(org.springframework.web.bind.annotation.GetMapping) || " +
+            "@annotation(org.springframework.web.bind.annotation.PostMapping) || " +
+            "@annotation(org.springframework.web.bind.annotation.DeleteMapping) || " +
             "@annotation(org.springframework.web.bind.annotation.PatchMapping))" +
-            "&& !execution(* kr.co.daeddongadmin.admin.controller.AuthController.login())")
+            "&& !execution(* kr.co.daeddongadmin.admin.controller.AuthController.login(..))")
     public void checkJwtToken() {
         String token = CommonUtil.resolveToken(request);
         if(StringUtil.isNotBlank(token) && jwtTokenProvider.validateToken(token)){

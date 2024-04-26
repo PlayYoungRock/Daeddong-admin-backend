@@ -3,7 +3,7 @@ package kr.co.daeddongadmin.admin.controller;
 import kr.co.daeddongadmin.admin.domain.Admin;
 import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.service.AdminService;
-import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

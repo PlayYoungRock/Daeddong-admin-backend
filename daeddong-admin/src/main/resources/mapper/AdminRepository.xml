@@ -11,7 +11,6 @@
 			CREATE_ID,
 			MOD_DATE,
 			MOD_ID,
-			ACCESS_IP,
 			LAST_LOGIN
 		from 120BPM_ADMIN
 		where USER_ID = #{username}
@@ -53,12 +52,11 @@
 			ID,
 			USER_ID as username,
 			PASSWORD,
-			ROLES,
+			ROLES as adminRole,
 			CREATE_DATE,
 			CREATE_ID,
 			MOD_DATE,
 			MOD_ID,
-			ACCESS_IP,
 			LAST_LOGIN
 		from 120BPM_ADMIN
 		<where>
@@ -68,6 +66,16 @@
 		</where>
 		order by ID desc
 			limit #{index}, #{count};
+	</select>
+	<select id="selectAdminCount" parameterType="java.util.HashMap" resultType="int">
+		select
+		count(*)
+		from 120BPM_ADMIN
+		<where>
+			<if test="searchWord != null and searchWord != ''">
+				AND USER_ID LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
 	</select>
 	<select id="selectAdminInfo" parameterType="String" resultType="kr.co.daeddongadmin.admin.domain.Admin">
 		select
@@ -79,7 +87,6 @@
 			CREATE_ID,
 			MOD_DATE,
 			MOD_ID,
-			ACCESS_IP,
 			LAST_LOGIN
 		from 120BPM_ADMIN
 		where ID = #{id}
@@ -96,23 +103,23 @@
 		 	 NICKNAME
 		 )
 		VALUES(
-			#{userId},
+			#{username},
 			#{password},
 			0,
-			#{roles},
+			#{adminRole},
 			now(),
 			#{createId},
-			#{nickName}
+			#{nickname}
 		);
 	</insert>
 
 	<update id="updateAdmin" parameterType="kr.co.daeddongadmin.admin.domain.Admin">
 		update 120BPM_ADMIN set
 			PASSWORD = #{password},
-			ROLES = #{roles},
+			ROLES = #{adminRole},
 			MOD_DATE = now(),
 			MOD_ID = #{modId},
-			NICKNAME = #{nickName}
+			NICKNAME = #{nickname}
 		where ID = #{id}
 	</update>
 

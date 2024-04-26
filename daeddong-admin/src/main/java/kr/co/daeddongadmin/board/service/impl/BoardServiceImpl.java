@@ -3,7 +3,7 @@ package kr.co.daeddongadmin.board.service.impl;
 import kr.co.daeddongadmin.board.domain.Board;
 import kr.co.daeddongadmin.board.repository.BoardRepository;
 import kr.co.daeddongadmin.board.service.BoardService;
-import kr.co.daeddongadmin.common.FileUtil;
+import kr.co.daeddongadmin.util.FileUtil;
 import kr.co.daeddongadmin.file.domain.File;
 import kr.co.daeddongadmin.file.repository.FileRepository;
 import lombok.extern.slf4j.Slf4j;

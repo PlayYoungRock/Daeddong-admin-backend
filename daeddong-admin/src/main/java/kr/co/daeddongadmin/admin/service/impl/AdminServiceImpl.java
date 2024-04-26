@@ -5,25 +5,19 @@ import kr.co.daeddongadmin.admin.domain.AdminLog;
 import kr.co.daeddongadmin.admin.domain.JwtToken;
 import kr.co.daeddongadmin.admin.repository.AdminRepository;
 import kr.co.daeddongadmin.admin.service.AdminService;
-import kr.co.daeddongadmin.board.domain.Board;
-import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.util.CommonUtil;
 import kr.co.daeddongadmin.exception.CustomException;
-import kr.co.daeddongadmin.file.domain.File;
 import kr.co.daeddongadmin.jwt.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @Service

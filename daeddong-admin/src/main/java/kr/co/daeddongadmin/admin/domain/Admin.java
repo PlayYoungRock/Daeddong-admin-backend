@@ -24,17 +24,17 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(of = "id")
 public class Admin implements UserDetails {
 
-        private Long id;
-        private String username;
-        private String password;
-        private String nickname;
-        private String create_date;
-        private String create_id;
-        private String mod_date;
-        private String mod_id;
-        private String access_ip;
-        private String lastLogin;
-        private int failPasswordCnt;
+        private Long id = 0L;
+        private String username = "";
+        private String password = "";
+        private String nickname = "";
+        private String createDate = "";
+        private String createId = "";
+        private String modDate = "";
+        private String modId = "";
+        private String lastLogin = "";
+        private String adminRole = "";
+        private int failPasswordCnt =0;
     @Builder.Default
     private List<String> roles = new ArrayList<>();
     @Override

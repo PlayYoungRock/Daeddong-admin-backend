@@ -2,7 +2,7 @@ package kr.co.daeddongadmin.admin.controller;
 
 import kr.co.daeddongadmin.admin.domain.Admin;
 import kr.co.daeddongadmin.admin.service.AdminService;
-import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class AdminController {
         int adminCount = adminService.selectAdminCount(paramMap);
         if(!adminList.isEmpty()){
             resultMap.put("resultCode","0000");
-            resultMap.put("adminCount",adminCount);
+            resultMap.put("totalCount",adminCount);
             resultMap.put("adminList",adminList);
         }else{
             resultMap.put("resultCode","1001");

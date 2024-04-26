@@ -2,7 +2,7 @@ package kr.co.daeddongadmin.board.controller;
 
 import kr.co.daeddongadmin.board.domain.Board;
 import kr.co.daeddongadmin.board.service.BoardService;
-import kr.co.daeddongadmin.common.CommonUtil;
+import kr.co.daeddongadmin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +34,7 @@ public class BoardController {
         int boardCount = boardService.selectBoardCount(paramMap);
         if(!boardList.isEmpty()){
             resultMap.put("resultCode","0000");
-            resultMap.put("boardCount",boardCount);
+            resultMap.put("totalCount",boardCount);
             resultMap.put("boardList",boardList);
         }else{
             resultMap.put("resultCode","1001");
@@ -76,7 +76,7 @@ public class BoardController {
         int result = boardService.insertBoard(bbsId,board,file);
         if(result == 1){
             resultMap.put("resultCode","0000");
-            resultMap.put("resultMsg","등록되었습니다.");
+            resultMap.put("resultMsg","등록 되었습니다.");
         }else{
             resultMap.put("resultCode","1001");
             resultMap.put("resultMsg","등록 실패.");
@@ -95,7 +95,7 @@ public class BoardController {
         int result = boardService.updateBoard(bbsId,board,file);
         if(result == 1){
             resultMap.put("resultCode","0000");
-            resultMap.put("resultMsg","등록되었습니다.");
+            resultMap.put("resultMsg","수정 되었습니다.");
         }else{
             resultMap.put("resultCode","1001");
             resultMap.put("resultMsg","수정 실패.");
