@@ -1,5 +1,7 @@
 package kr.co.daeddongadmin;
 
+import kr.co.daeddongadmin.exception.CustomRuntimeException;
+import kr.co.daeddongadmin.exception.ErrorResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -7,6 +9,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -58,7 +63,7 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(Arrays.asList("http://localhost:3001", "http://admin-daeddong-front.s3-website.ap-northeast-2.amazonaws.com/"));
 //		config.setAllowedOrigins(Arrays.asList("*"));
-		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		config.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
 //		config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 //		config.setExposedHeaders(Arrays.asList("Authorization"));
 		config.setAllowedHeaders(Arrays.asList("*"));
@@ -70,5 +75,6 @@ public class DaeddongAdminApplication extends SpringBootServletInitializer {
 
 		return new CorsFilter(source);
 	}
+
 }
 

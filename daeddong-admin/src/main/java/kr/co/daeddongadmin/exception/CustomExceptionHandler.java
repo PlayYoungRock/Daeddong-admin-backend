@@ -8,7 +8,7 @@ public class CustomExceptionHandler {
     public static ResponseEntity<Object> handleCustomException(CustomException ex) {
     String customErrorMessage = ex.getCustomMessage();
     String customErrorCode = ex.getCustomErrorCode();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(getCustomErrorResponse(customErrorMessage, customErrorCode));
+        return ResponseEntity.status(HttpStatus.OK).body(getCustomErrorResponse(customErrorMessage, customErrorCode));
 }
 
     private static Object getCustomErrorResponse(String errorMessage, String errorCode) {
